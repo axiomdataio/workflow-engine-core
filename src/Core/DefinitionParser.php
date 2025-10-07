@@ -130,6 +130,19 @@ class DefinitionParser
             $definition = $decoded;
         }
 
+        // Optional JSON Schema validation if package available
+        if (class_exists('Opis\\JsonSchema\\Validator')) {
+            try {
+                (new JsonSchemaValidator())->validate($definition);
+            } catch (\Throwable $e) {
+                throw new InvalidWorkflowDefinitionException(
+                    'Schema validation failed: '.$e->getMessage(),
+                    $definition,
+                    ['schema_error' => $e->getMessage()]
+                );
+            }
+        }
+
         // Validate the complete definition structure
         $this->validateDefinition($definition);
 
