@@ -62,5 +62,8 @@
             "pestphp/pest-plugin": true,
             "pestphp/pest-plugin-arch": true
         }
-    }
+  },
+  "suggest": {
+    "opis/json-schema": "Enable JSON Schema validation of workflow definitions at parse time"
+  }
 }
